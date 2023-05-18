@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.myweb.freeboard.mapper.IFreeBoardMapper">
+
+	<!-- #동적(Dynamic) SQL QUERY 
+		 태그로 조건문을 사용하여 쿼리의 실행을 동적으로 제어할수 있는 문법
+		중복된 SQL query피할수있음->능동적대처가능
+		미리 쿼리문을 준비해 놓고, <include refid="이름(id)"/>를 통해 삽입하여 사용
+	-->
+	<!-- mysql은 CONCAT변수가 가변인수 -->
+	<sql id="search">
+		<if test="condition == 'title'">
+			WHERE title LIKE CONCAT('%', #{keyword},'%')
+		</if>
+		<if test="condition == 'writer'">
+			WHERE writer LIKE CONCAT('%', #{keyword},'%')
+		</if>
+		<if test="condition == 'content'">
+			WHERE content LIKE CONCAT('%', #{keyword},'%')
+		</if>
+		<if test="condition == 'titleContent'">
+			WHERE title LIKE CONCAT('%', #{keyword},'%')
+			OR content LIKE CONCAT('%', #{keyword},'%')
+		</if>
+	</sql>
+
+
+	<insert id="regist">
+		INSERT INTO freeboard
+		(title, writer, content)
+		VALUES(#{title}, #{writer}, #{content})
+	</insert>
+	
+	<!-- WHERE절을  -->
+	<select id="getList" resultType="board"><!--(#{page}-1)*#{cpp} <-  -->
+		SELECT * FROM freeboard
+		<include refid="search"/>
+		ORDER BY bno DESC
+		LIMIT #{pageStart}, #{cpp}
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*)
+		FROM freeboard	
+		<include refid="search"/>	
+	</select>
+	
+	<select id="getContent" resultType="board">
+		SELECT * FROM freeboard
+		WHERE bno = #{bno}
+	</select>
+	
+	 <update id="update">
+        UPDATE freeboard
+        SET title = #{title} , content = #{content},
+        update_date = current_timestamp
+        WHERE bno = #{bno}
+    </update>
+    
+    <delete id="delete">
+        DELETE FROM freeboard
+        WHERE bno = #{bno}
+    </delete>
+
+</mapper>

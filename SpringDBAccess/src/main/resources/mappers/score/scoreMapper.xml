@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!--구현하고자 하는 인터페이스의 풀 경로 작성, namespace = 경로  --> 
+<mapper namespace="com.spring.db.repository.IScoreMapper">
+
+	<!-- db컬럼명과 VO의 필드명을 맞추는 resultmap 선언 -->
+	<resultMap type="com.spring.db.model.ScoreVO" id="scoreMap">
+		<!-- 컬렴명과 필드명이 다른것만 선언해주기 -->
+		
+		<!-- id tag는 PRIMARY KEY, 나머지는 RESULT로 처리 -->
+		<id property="stuId" column="stu_id"/>
+		<!-- 필드명 선언후 컬렴명 선언 -->
+		<result property="stuName" column="stu_name"/>
+	</resultMap>
+	
+	
+	<!-- 점수 등록 기능 -->
+	<insert id="insertScore">
+		INSERT INTO scores (stu_name, kor, eng, math, total, average)
+		VALUES(#{stuName},#{kor},#{eng},#{math},#{total},#{average})<!-- 세미콜론 안붙임! -->
+	</insert>
+	
+	<!-- 점수 전체 조회기능 -->
+	<select id="selectAllScores" resultMap="scoreMap"> <!-- 컬럼명이 db와 다르면(진짜 똑같아야함) 값을 안가져옴 -->
+		SELECT * FROM scores
+		ORDER BY stu_id ASC
+	</select>
+	
+	<!-- 점수삭제 기능 -->
+	<delete id="deleteScore">
+		DELETE FROM scores 
+		WHERE stu_id = #{num} <!-- 단일값이면 단일값변수 이름그대로! -->
+	</delete>
+	
+	<!-- 점수 개별 조회기능 -->
+	<select id="selectOne" resultMap="scoreMap"> <!-- 컬럼명이 db와 다르면(진짜 똑같아야함) 값을 안가져옴 -->
+		SELECT * FROM scores
+		WHERE stu_id = #{num}
+	</select>
+	
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 
+		JDBC 관련 bean(클래스 객체) 등록, 설정 등을 관리하는 파일.
+		JDBC뿐만 아니라 다양한 라이브러리를 사용할때 필요한 빈 등록이나 설정등을 담당하는 파일
+		(초반부라 아무것도 작성되어 있지 않음)
+	 -->
+		
+</beans>

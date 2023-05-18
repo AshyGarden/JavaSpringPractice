@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 자동으로 컨트롤러와 매핑매서드를 탐색(handler mapping, handler bean 등록 -->
+	<annotation-driven />
+	
+	<!-- 외부에 따로 설정한 설정 파일을 참조하는곳에 사용하는 클래스 -->
+	<beans:bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<beans:property name="locations">
+			<beans:list>
+				<beans:value>classpath:/properties/email.properties</beans:value>
+				<beans:value>classpath:/properties/Hikari.properties</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+	<!-- css,jsp파일등의 경로가복작하기때문에 일일히 쓰기귄찮고 실수도 잦아짐 
+	이럴떄 내부경로를 숨겨주며 편하게 사용하게 해줌-->
+	<resources mapping="/css/**" location="/resources/css/" />
+	<resources mapping="/js/**" location="/resources/js/" />
+	<resources mapping="/img/**" location="/resources/img/" />
+	<resources mapping="/fonts/**" location="/resources/fonts/" />
+
+	<!-- 
+		컨트롤러가 리턴한 문자열 앞, 뒤에 적절한 경로를 붙여서 화면을 응답할수 있도록 도와주는 View resolver
+	 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 
+		Annotation으로 등록된 객체(@Controller...)들을 탐색해서 bean으로 등록해주는 설정 태그
+		base-package에다가 탐색할 패키지 경로를 쓰시면 하위패키지까지 검색가능
+	 -->
+	<context:component-scan base-package="com.spring.myweb" />
+	
+	
+	
+</beans:beans>

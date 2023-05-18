@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!--구현하고자 하는 인터페이스의 풀 경로 작성, namespace = 경로  --> 
+<mapper namespace="com.spring.db.repository.IBoardMapper">
+
+	<!-- db컬럼명과 VO의 필드명을 맞추는 resultmap 선언 -->
+	<resultMap type="com.spring.db.model.BoardVO" id="boardMap">
+		<id property="boardNo" column="board_no"/>
+		<result property="regDate" column="reg_date"/>
+	</resultMap>
+	
+	
+	<!-- 점수 등록 기능 -->
+	<insert id="insertArticle">
+		INSERT INTO jdbc_board 
+		(writer, title, content)
+		VALUES(#{writer},#{title},#{content})<!-- 세미콜론 안붙임! -->
+	</insert>
+	
+	<!-- 점수 전체 조회기능 -->
+	<select id="getArticles" resultMap="boardMap"> <!-- 컬럼명이 db와 다르면(진짜 똑같아야함) 값을 안가져옴 -->
+		SELECT * FROM jdbc_board
+		ORDER BY board_no DESC
+	</select>
+	
+	<!-- 특정 점수 조회기능 -->
+	<select id="getArticle" resultMap="boardMap"> <!-- 컬럼명이 db와 다르면(진짜 똑같아야함) 값을 안가져옴 -->
+		SELECT * FROM jdbc_board
+		WHERE board_no = #{bno}
+	</select>
+	
+	<!-- 점수 개별 조회기능 -->
+	<select id="updateArticle" resultMap="boardMap"> <!-- 컬럼명이 db와 다르면(진짜 똑같아야함) 값을 안가져옴 -->
+		UPDATE jdbc_board 
+		SET writer = #{writer}, title = #{title}, content = #{content}
+		WHERE board_no = #{boradNo}
+	</select>
+	
+	<!-- 점수삭제 기능 -->
+	<delete id="deleteArticle">
+		DELETE FROM jdbc_board
+		WHERE board_no = #{bno} 
+	</delete>
+	
+	
+</mapper>
