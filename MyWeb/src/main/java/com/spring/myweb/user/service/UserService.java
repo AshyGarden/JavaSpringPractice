@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.myweb.command.UserVO;
 import com.spring.myweb.user.mapper.IUserMapper;
+import com.spring.myweb.util.PageVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,26 +40,27 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public UserVO login(String id, String pw) {
-		//id정보를 기반으로 회원의 정보를 조회
-		UserVO vo = getInfo(id);
-		if(vo != null) {
-			String dbPw = vo.getUserPw(); //db에서 가져온 암호화된 pw
+	public String login(String id, String pw) {
+		//db에서 id정보를 기반으로 회원의 정보를 조회
+		String dbPw = mapper.login(id);
+		if(dbPw != null) {
+			//String dbPw = vo.getUserPw(); //db에서 가져온 암호화된 pw
 			if(encoder.matches(pw, dbPw)) {
-				return vo;
+				//return vo.getUserId();
+				return id;
 			}
 		}	
 		return null;
 	}
 
 	@Override
-	public UserVO getInfo(String id) {
-		return mapper.getInfo(id);
+	public UserVO getInfo(String id, PageVO vo) {
+		return mapper.getInfo(id, vo);
 	}
 
 	@Override
 	public void updateUser(UserVO vo) {
-		// TODO Auto-generated method stub
+		
 
 	}
 

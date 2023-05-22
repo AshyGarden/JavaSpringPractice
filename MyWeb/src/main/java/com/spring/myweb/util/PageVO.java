@@ -10,6 +10,9 @@ public class PageVO {
 	private int pageNum;
 	private int cpp;
 	
+	//myPage에서 페이징을 구현하기 위한 필드추가
+	private String loginId;
+	
 	//검색 요청에 필요한 필드를 추가
 	private String keyword;
 	private String condition;

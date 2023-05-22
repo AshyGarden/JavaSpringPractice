@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <!--사용자클래스선언-->
                         <label for="id">비밀번호</label>
-                        <input type="password" name="userPw" class="form-control" id="id" placeholder="비밀번호">
+                        <input type="password" name="userPw" class="form-control" id="pw" placeholder="비밀번호">
                     </div>
                     <div class="form-group">
                         <button type="button" id="loginBtn" class="btn btn-info btn-block">로그인</button>

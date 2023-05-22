@@ -127,7 +127,7 @@
             alert('아이디를 다시 적어주세요');
         }
         //아이디 중복확인 비동기 요청준비
-        const xhr = new XMLHttpRequest();
+        //const xhr = new XMLHttpRequest();
 
         /*
             //서버요청정보설정 - 구버전
@@ -191,7 +191,7 @@
 
         fetch('${pageContext.request.contextPath}/user/idCheck', reqObj)
             .then(res => res.text()) //요청 완료후 응답정보에서 텍스트만 추출
-            .then(data => {
+            .then(data => { //텍스트만 뺀 promise객체로 부터 data전달받기
                 if (data === 'ok') {
                     //더이상 아이디를 작성할수 없도록 막기
                     document.getElementById('userId').setAttribute('readonly', true);
@@ -228,7 +228,6 @@
             console.log('Blur Activate!');
             const inputCode = e.target.value; //인증한 인증번호
             const $resultMsg = document.getElementById('mail-check-warn'); //span
-
             console.log('사용자 입력값: ' + inputCode);
 
             if (inputCode === code) {
@@ -270,7 +269,7 @@
                     addr = data.jibunAddress;
                 }
 
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+              /*   // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
                 if (data.userSelectedType === 'R') {
                     // 법정동명이 있을 경우 추가한다. (법정리는 제외)
                     // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
@@ -290,7 +289,7 @@
 
                 } else {
                     document.getElementById("sample6_extraAddress").value = '';
-                }
+                } */
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample6_postcode').value = data.zonecode;
@@ -306,14 +305,13 @@
 
 
         if (idFlag && pwFlag) {
-            if (document.getElementById('userId').value === '' ||
-                !document.getElementById('userId').getAttribute('readonly')) {
+            if (!document.getElementById('userId').getAttribute('readonly')) {
                 alert('아이디 중복체크는 필수입니다.');
                 return;
             }
 
-            if (document.getElementById('userPw').value !== 
-                document.getElementById('pwConfirm').value) {
+            if (document.getElementById('userPw').value 
+            		!== document.getElementById('pwConfirm').value) {
                 alert('비밀번호를 다시 확인해주세요.');
                 return;
             }

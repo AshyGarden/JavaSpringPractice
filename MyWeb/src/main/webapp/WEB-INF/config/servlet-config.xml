@@ -10,6 +10,7 @@
 	<!-- 자동으로 컨트롤러와 매핑매서드를 탐색(handler mapping, handler bean 등록 -->
 	<annotation-driven />
 	
+	<!-- 비밀번호 암호화 객체 빈 등록 -->
 	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
 	<!-- 외부에 따로 설정한 설정 파일을 참조하는곳에 사용하는 클래스 -->

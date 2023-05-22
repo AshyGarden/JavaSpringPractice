@@ -20,7 +20,7 @@ public class UserAuthHandler implements HandlerInterceptor{
         HttpSession session = request.getSession();
         
         if(session.getAttribute("login") == null) {
-            response.sendRedirect(request.getContextPath() + "user/userLogin");
+            response.sendRedirect(request.getContextPath() + "/user/userLogin");
             //false가 리턴되면 컨트롤러로 요청이 전달되지 않습니다.
             return false;
         }
