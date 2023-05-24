@@ -11,7 +11,7 @@ public interface IReplyMapper {
 	List<ReplyVO> getList(Map<String, Object> data);//목록요청	
 	int getTotal(int bno);//댓글갯수(페이징)
 	
-	boolean pwCheck(ReplyVO vo);//비밀번호확인	
+	String pwCheck(int rno);//비밀번호확인	
 	void update(ReplyVO vo);//댓글수정	
 	void delete(int rno);//댓글삭제
 	

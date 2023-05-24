@@ -39,8 +39,10 @@
 	</insert>
 	
 	<!-- WHERE절을  -->
-	<select id="getList" resultType="board"><!--(#{page}-1)*#{cpp} <-  -->
-		SELECT * FROM freeboard
+	<select id="getList" resultType="board"><!--(#{page}-1)*#{cpp} <-  -->	
+		SELECT f.*,
+		(SELECT COUNT(*) FROM freereply WHERE bno = f.bno) AS reply_cnt 
+		FROM freeboard f
 		<include refid="search"/>
 		ORDER BY bno DESC
 		LIMIT #{pageStart}, #{cpp}
@@ -69,5 +71,10 @@
         DELETE FROM freeboard
         WHERE bno = #{bno}
     </delete>
+    
+    <!-- 
+    
+    
+     -->
 
 </mapper>

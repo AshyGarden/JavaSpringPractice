@@ -24,4 +24,7 @@ public class FreeBoardVO {
 	private String content;
 	private LocalDateTime regDate;
 	private LocalDateTime updateDate;
+	
+	//게시물 1개의 몇개의 댓글이 포함되는가에대한 변수
+	private int replyCnt;
 }

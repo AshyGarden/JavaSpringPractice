@@ -45,6 +45,8 @@
 	                           <td>
 	                           		<!-- <a href="${pageContext.request.contextPath}/freeboard/content/${vo.bno}">${vo.title}</a> -->
 	                           		<a href="${pageContext.request.contextPath}/freeboard/content/${vo.bno}?pageNum=${pc.paging.pageNum}&cpp=${pc.paging.cpp}&keyword=${pc.paging.keyword}&condition=${pc.paging.condition}">${vo.title}</a>
+                                    &nbsp;
+                                    <strong>[${vo.replyCnt}]</strong>
 	                           </td>
 	                           <td>${vo.writer}</td>
 	                           <td>

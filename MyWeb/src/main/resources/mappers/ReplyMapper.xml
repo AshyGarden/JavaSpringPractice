@@ -23,4 +23,21 @@
 		WHERE bno = #{bno}
 	</select>
 	
+	<select id="pwCheck" resultType="string">
+		SELECT reply_pw
+		FROM freereply
+		WHERE rno = #{rno}
+	</select>
+	
+	<update id="update">
+		UPDATE freereply
+		SET reply = #{reply}, update_date = current_timestamp
+		WHERE rno = #{rno}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM freereply
+		WHERE rno = #{rno}
+	</delete>
+	
 </mapper>

@@ -1,12 +1,15 @@
 package com.spring.myweb.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +46,36 @@ public class ReplyController {
 			
 		List<ReplyVO> list = service.getList(bno, pageNum);
 		int total = service.getTotal(bno);
-		return null;
+		
+		Map<String, Object> map = new HashMap<>(); //이름을 달아주기-가져와서 정보 뿌리기
+		map.put("list", list); //댓글목록
+		map.put("total", total); //게시글에 달려있는 댓글 총 갯수
+		return map;
 	}
+	
+	//댓글 수정 요청
+	@PutMapping("/{rno}")
+	public String update(@PathVariable int rno, @RequestBody ReplyVO vo) {
+		vo.setBno(rno);
+		if(service.pwCheck(vo)) {
+			service.update(vo);
+			return "updateSuccess";
+		} else {
+			return "pwFail";
+		}
+	}
+	
+	//댓글 삭제 요청
+	@DeleteMapping("/{rno}")
+	public String delete(@PathVariable int rno, @RequestBody ReplyVO vo) {
+		vo.setRno(rno);
+		if(service.pwCheck(vo)) {
+			service.delete(rno);
+			return "delSuccess";
+		} else {
+			return "pwFail";
+		}
+	}
+	
 	
 }
